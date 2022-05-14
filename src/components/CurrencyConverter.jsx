@@ -1,29 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ExchangeRate from './ExchangeRate'
 import axios from 'axios'
 
 const CurrencyConverter = () => {
 
-    const currencies = ['BTC', 'ETH', 'USD', 'XRP', 'LTC', 'ADA']
+    const currencies = ['USDT', 'BTC', 'ETH', 'USD', 'XRP', 'LTC', 'ADA']
     const [chosenPrimaryCurrency, setchosenPrimaryCurrency] = useState('BTC')
-    const [chosenSecondaryCurrency, setchosenSecondaryCurrency] = useState('BTC')
+    const [chosenSecondaryCurrency, setchosenSecondaryCurrency] = useState('USDT')
     const [amount, setAmount] = useState(1)
+    const [exchangeRate, setExchangeRate] = useState(0)
+    const [result, setResult] = useState(0)
 
-    console.log(chosenPrimaryCurrency)
+    // console.log(exchangeRate)
+
+
 
     const convert = () => {
         const options = {
             method: 'GET',
             url: 'https://alpha-vantage.p.rapidapi.com/query',
-            params: { from_currency: `BTC`, function: 'CURRENCY_EXCHANGE_RATE', to_currency: `USD` },
+            params: { from_currency: chosenPrimaryCurrency, function: 'CURRENCY_EXCHANGE_RATE', to_currency: chosenSecondaryCurrency },
             headers: {
                 'X-RapidAPI-Host': 'alpha-vantage.p.rapidapi.com',
-                'X-RapidAPI-Key': 'fca9dbc51amshc6a3431a63459bbp1c3456jsn5b8eb466aa22'
+                'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY
             }
         };
 
         axios.request(options).then((response) => {
-            console.log(response.data);
+            console.log(response.data)
+            console.log(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'])
+            setExchangeRate(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'])
+            setResult(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'] * amount)
         }).catch((error) => {
             console.error(error);
         });
@@ -67,7 +74,8 @@ const CurrencyConverter = () => {
                                 <input
                                     type="number"
                                     name='currency-amount-2'
-                                    value={""}
+                                    value={result}
+                                    disabled
                                 />
                             </td>
                             <td>
@@ -89,7 +97,11 @@ const CurrencyConverter = () => {
                 <button id='convert-button' onClick={convert}>Convert</button>
             </div>
 
-            <ExchangeRate />
+            <ExchangeRate
+                exchangeRate={exchangeRate}
+                chosenPrimaryCurrency={chosenPrimaryCurrency}
+                chosenSecondaryCurrency={chosenSecondaryCurrency}
+            />
         </div>
     )
 }
