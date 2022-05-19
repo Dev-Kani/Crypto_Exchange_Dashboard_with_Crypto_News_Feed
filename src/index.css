@@ -6,13 +6,14 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen'
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: .58px;
 }
 
-body {
-  /* background-color: #e6dbc9; */
+input,
+select {
+  border: none;
 }
-
 
 .app {
   display: flex;
@@ -22,14 +23,17 @@ body {
 
 .app-wrapper {
   display: flex;
+  flex-direction: column;
   margin: 2rem 0 0 0;
   justify-content: center;
+  align-items: center;
 }
 
-.dash-board-title {
-  text-align: center;
-  background-color: #e4d4b8;
-  padding: 2rem 0;
+@media screen and (min-width: 735px) {
+  .app-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 }
 
 .currency-converter {
@@ -72,24 +76,8 @@ input:disabled {
 }
 
 .currency-label {
-  /* background-color: aqua; */
-
-  /* text-align: ; */
-  /* padding-left: 1rem; */
   margin: 0 1rem 0 0;
 }
-
-
-
-.news-feed {
-  background-color: rgb(204, 204, 231);
-  padding: 2rem;
-  margin: 5px;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-  max-width: 300px;
-  border-radius: 10px;
-}
-
 
 .exchange-rate {
   background-color: rgb(221, 230, 221);
@@ -97,6 +85,12 @@ input:disabled {
   margin-top: 10px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   border-radius: 10px;
+}
+
+.exchange-rate h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: .4rem 0;
 }
 
 .input-box {
@@ -107,16 +101,32 @@ input:disabled {
 }
 
 button {
+  padding: .5rem 1rem;
+  border-radius: 5px;
   border: none;
-  float: right;
-  margin: 2px;
+  margin: .6rem 0 0 0;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: coral;
+  background-color: #e0a745;
 }
 
-input,
-select {
-  border: none;
+.news-feed {
+  background-color: #CCCCE7;
+  padding: 2rem;
+  margin: 5px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+.news-container {
+  margin: 2rem 0 0 0;
+}
+
+.news-item {
+  font-size: 15px;
+  margin-top: 12px;
 }

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ExchangeRate from './ExchangeRate'
 import axios from 'axios'
 
 const CurrencyConverter = () => {
 
-    const currencies = ['USDT', 'BTC', 'ETH', 'USD', 'XRP', 'LTC', 'ADA']
+    const currencies = ['USDT', 'BTC', 'ETH', 'XRP', 'LTC', 'ADA']
     const [chosenPrimaryCurrency, setchosenPrimaryCurrency] = useState('BTC')
     const [chosenSecondaryCurrency, setchosenSecondaryCurrency] = useState('USDT')
     const [amount, setAmount] = useState(1)
     const [exchangeRate, setExchangeRate] = useState(0)
     const [result, setResult] = useState(0)
 
-    // console.log(exchangeRate)
+
 
 
 
@@ -27,15 +27,12 @@ const CurrencyConverter = () => {
         };
 
         axios.request(options).then((response) => {
-            console.log(response.data)
-            console.log(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'])
             setExchangeRate(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'])
             setResult(response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'] * amount)
         }).catch((error) => {
             console.error(error);
         });
     }
-
 
     return (
         <div className='currency-converter'>
@@ -74,7 +71,7 @@ const CurrencyConverter = () => {
                                 <input
                                     type="number"
                                     name='currency-amount-2'
-                                    value={result}
+                                    value={parseFloat(result).toFixed(4)}
                                     disabled
                                 />
                             </td>

@@ -16,7 +16,6 @@ const NewsFeed = () => {
         };
 
         axios.request(options).then(function (response) {
-            console.log(response.data);
             setArticles(response.data)
         }).catch(function (error) {
             console.error(error);
@@ -29,14 +28,20 @@ const NewsFeed = () => {
     return (
         <div className='news-feed'>
             <h2>News Feed</h2>
-            {first7Articles?.map((article, index) => (
-                <div key={index}>
-                    <a href={article.url}>
-                        <p>{article.title}</p>
-                    </a>
-                </div>
-            )
-            )}
+            <div className='news-container'>
+                {first7Articles?.map((article, index) => (
+                    <div className='news-item' key={index}>
+                        <a
+                            href={article.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <p>{article.title}</p>
+                        </a>
+                    </div>
+                )
+                )}
+            </div>
         </div>
     )
 }
